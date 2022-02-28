@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <div class="container">
+                <h1>SHOW-PRODUCTS</h1>
+                <main>
+                    <% if (prods.length> 0) { %>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <% for (var product of prods) { %>
+                                <div class="col-sm-3">
+                                    <div class="card">
+                                    <img src=" <%= product.imageUrl %>"
+                                            class="card-img-top" alt="tshirt">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= product.title %>
+                                            </h5>
+                                            <h4 class="product__price">Rs. <%= product.price %></h4>
+                                            <p class="card-text"> <%= product.description %></p>
+                                            <div id="btnn">
+                                            <!-- <a href="/admin/edit-product/<%= product.id %>" class="btn btn-outline-success">Edit</a> -->
+                                            <a href="/admin/edit-product/<%= product._id %>?edit=true" class="btn btn-success">Edit</a>
+
+                                            <form action="/admin/delete-product" method="POST">
+                                                <input type="hidden" value="<%= product._id %>" name="productId">
+                                          
+                                                <button type="submit" class="btn btn-danger" style="margin-left: 4%;">Delete </button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                        <% } else { %>
+                            <h1>Sorry! No Products Found!</h1>
+                            <% } %>
+                </main>
+            </div>
+
+        

@@ -1,0 +1,30 @@
+const fs = require('fs')
+const path = require('path')
+
+// const products = []; //step 2 now saving data into file in step 3
+// module.exports = function Product(){  //step 1
+    // we can use this also and import /export it
+// } but we are using directly below code
+module.exports = class Product{
+    constructor(t){
+        this.title = t
+    }
+    save() {    //function without name
+        // products.push(this) //saving into array 
+        const p = path.join(path.dirname(process.mainModule.filename),'data', 'products.json' ) //data is a folder name and if we saving data then it will save into product.json file.
+        fs.readFile(p,(err,data) => {
+            let products = [];
+            if (!err){
+                products = JSON.parse(data)
+            }
+            // console.log(err);
+            products.push(this) //saving into array
+            fs.writeFile(p,JSON.stringify(products), (err) => {
+                console.log(err);
+            })
+        })
+    }
+    static fetchAll() {
+        return products;
+    }
+}
